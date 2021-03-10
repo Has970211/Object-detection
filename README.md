@@ -2,7 +2,7 @@
 
 ## How to run
   ```
-  git clone https://github.com/Has970211/Object_Detection.git
+  git clone https://github.com/Has970211/Object-detection.git
   cd corrosion-detector
 
   # install project 
