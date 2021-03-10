@@ -15,8 +15,8 @@ class dataloader(object):
         self.json_dir=json_dir
         self.img_dir=img_dir
 
-    def get_dataset_dicts(data_dir,json_dir,img_dir):
-        json_file = os.path.join(data_dir, json_dir)   #json_dir_train="results/merged/annotations/merged.json", json_dir_val="annotations/merged.json"
+    def get_dataset_dicts(self):
+        json_file = os.path.join(self.data_dir, self.json_dir)   #json_dir_train="results/merged/annotations/merged.json", json_dir_val="annotations/merged.json"
         with open(json_file) as f:
         imgs_anns = json.load(f)
 
@@ -24,7 +24,7 @@ class dataloader(object):
         for idx, v in enumerate(imgs_anns['images']):
             record = {}
             
-            filename = os.path.join(data_dir, img_dir, v["file_name"])  #img_dir_train="results/merged/images", img_dir_val="images/image_set"
+            filename = os.path.join(self.data_dir, self.img_dir, v["file_name"])  #img_dir_train="results/merged/images", img_dir_val="images/image_set"
             src = cv2.imread(filename)
             img_height, img_width = src.shape[:2]
             image_id = idx + 1
