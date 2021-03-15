@@ -1,9 +1,9 @@
-# Corrosion-Detector
+# Object Detection
 
 ## How to run
   ```
   git clone https://github.com/Has970211/Object-detection.git
-  cd corrosion-detector
+  cd Object-detection
 
   # install project 
   pip install -e .
