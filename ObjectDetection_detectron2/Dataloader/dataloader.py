@@ -58,3 +58,4 @@ class dataloader(object):
             record["annotations"] = objs
             dataset_dicts.append(record)
         return dataset_dicts
+
