@@ -8,6 +8,6 @@ setup(
     author_email='',
     # REPLACE WITH YOUR OWN GITHUB PROJECT LINK
     url="https://github.com/Has970211/Object_Detection",
-    install_requires=['torch', 'torchvision', 'pyyaml', 'detectron2 -f https://dl.fbaipublicfiles.com/detectron2/wheels/cu101/torch1.8/index.htmll'],
+    install_requires=['torch', 'torchvision', 'PyYAML'],
     packages=find_packages()
 )
