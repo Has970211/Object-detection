@@ -10,8 +10,8 @@ from detectron2.utils.visualizer import ColorMode
 from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 
 class test(object):
-    def __init__(self, OUTPUT_DIR,data_dir,json_dir,img_dir, threshold_scr):
-       self.OUTPUT_DIR=OUTPUT_DIR
+    def __init__(self, output_dir, data_dir,json_dir,img_dir, threshold_scr):
+       self.output_dir= output_dir
        self.data_dir=data_dir
        self.json_dir=json_dir
        self.img_dir=img_dir
@@ -23,7 +23,7 @@ class test(object):
         cfg.MODEL.WEIGHTS = model_zoo.get_checkpoint_url("COCO-InstanceSegmentation/mask_rcnn_X_101_32x8d_FPN_3x.yaml")  # Let training initialize from model zoo
         cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 7 
-        cfg.OUTPUT_DIR=self.OUTPUT_DIR
+        cfg.OUTPUT_DIR=self.output_dir
         
         cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
