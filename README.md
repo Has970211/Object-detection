@@ -21,8 +21,9 @@
     data_dir = '....'
     json_dir = '....'
     img_dir = '....'
+    threshold_scr=....
   
-  Test = test(OUTPUT_DIR, data_dir, json_dir, img_dir)
+  Test = test(OUTPUT_DIR, data_dir, json_dir, img_dir, threshold_scr)
   Test.call()
   
   #output will be saved in the image folder 
