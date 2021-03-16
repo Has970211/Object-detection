@@ -8,12 +8,12 @@
   # install project 
   pip install -e .
   pip install -r requirements.txt
+  python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
   ```
   
 ## Imports
 
   ```
-  python
   from ObjectDetection_detectron2.Inference.inference import test
   
   #set paths
