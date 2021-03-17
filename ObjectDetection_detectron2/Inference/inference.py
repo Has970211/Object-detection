@@ -1,4 +1,3 @@
-import detectron2
 import cv2
 import os
 from detectron2 import model_zoo
