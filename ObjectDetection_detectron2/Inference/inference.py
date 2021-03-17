@@ -10,7 +10,7 @@ from detectron2.utils.visualizer import ColorMode
 from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 
 class test(object):
-    def __init__(self, output_dir, img_floder, threshold_scr):
+    def __init__(self, output_dir, img_folder, threshold_scr):
        self.output_dir= output_dir
        self.img_folder=img_folder
        self.threshold_scr = threshold_scr
