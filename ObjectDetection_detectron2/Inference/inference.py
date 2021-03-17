@@ -5,16 +5,14 @@ from detectron2 import model_zoo
 from detectron2.engine import DefaultPredictor
 from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
+from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode
 from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 
 class test(object):
-    def __init__(self, output_dir, data_dir,json_dir,img_dir, threshold_scr):
+    def __init__(self, output_dir, img_floder, threshold_scr):
        self.output_dir= output_dir
-       self.data_dir=data_dir
-       self.json_dir=json_dir
-       self.img_dir=img_dir
+       self.img_folder=img_folder
        self.threshold_scr = threshold_scr
 
     def call(self):
@@ -29,23 +27,14 @@ class test(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
 
-        for d in ['val']:
-            DatasetCatalog.register("dataset_val", lambda d=d: dataloader.get_dataset_dicts(self.data_dir, self.json_dir, self.img_dir))
-            MetadataCatalog.get("dataset_val").set(thing_classes=['gauge', 'valve', 'isolation', 'tank', 'idtag', 'pump', 'gaugeD'])
-        custom_metadata = MetadataCatalog.get("dataset_val")
-        dataset_val=dataloader.get_dataset_dicts(self.data_dir+d,self.json_dir, img_dir)
  
-        for d in random.sample(dataset_val, 16):
-            im = cv2.imread(d["file_name"])
+        for filename in os.listdir(self.img_folder):
+            im = cv2.imread(os.path.join(self.img_folder, filename))
+            #rgb_image = im[:, :, ::-1]
             outputs = predictor(im)  # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
-            v = Visualizer(im[:, :, ::-1],
-                        metadata=custom_metadata,
-                        scale=0.5,
-                        instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels. This option is only available for segmentation models
-            )
-
-            out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-            cv2.imshow(out.get_image()[:, :, ::-1])
+            v = Visualizer(im[:, :, ::-1],  MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=0.5, instance_mode=ColorMode.IMAGE_BW)
+            v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+            cv2_imshow(v.get_image()[:, :, ::-1])
 
 
 
