@@ -18,7 +18,7 @@ class dataloader(object):
     def get_dataset_dicts(self):
         json_file = os.path.join(self.data_dir, self.json_dir)   #json_dir_train="results/merged/annotations/merged.json", json_dir_val="annotations/merged.json"
         with open(json_file) as f:
-        imgs_anns = json.load(f)
+            imgs_anns = json.load(f)
 
         dataset_dicts = []
         for idx, v in enumerate(imgs_anns['images']):
