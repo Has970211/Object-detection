@@ -6,7 +6,7 @@ from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode
-from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
+#from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 
 class test(object):
     def __init__(self, output_dir, img_folder, threshold_scr):
@@ -25,15 +25,20 @@ class test(object):
         cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")  # path to the model we just trained
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
+        
+        PATH = os.path.join(self.output_dir, 'OUTPUT_RESULTS')
+        os.mkdir(PATH)
 
- 
         for filename in os.listdir(self.img_folder):
             im = cv2.imread(os.path.join(self.img_folder, filename))
-            #rgb_image = im[:, :, ::-1]
-            outputs = predictor(im)  # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
-            v = Visualizer(im[:, :, ::-1],  MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=0.5, instance_mode=ColorMode.IMAGE_BW)
+            rgb_image = im[:, :, ::-1]
+            outputs = predictor(rgb_image) # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
+
+            v = Visualizer(rgb_image,  MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-            cv2_imshow(v.get_image()[:, :, ::-1])
+
+            img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
+            img.save(os.path.join(PATH, filename))
 
 
 
