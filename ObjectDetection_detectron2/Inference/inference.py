@@ -6,6 +6,7 @@ from detectron2.config import get_cfg
 from detectron2.utils.visualizer import Visualizer
 from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode
+from PIL import Image
 #from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 
 class test(object):
