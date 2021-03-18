@@ -27,8 +27,9 @@ class test(object):
         predictor = DefaultPredictor(cfg)
         
         PATH = os.path.join(self.output_dir, 'OUTPUT_RESULTS')
-        os.mkdir(PATH)
-
+        if not os.path.exists(PATH):
+            os.mkdir(PATH)
+           
         for filename in os.listdir(self.img_folder):
             im = cv2.imread(os.path.join(self.img_folder, filename))
             rgb_image = im[:, :, ::-1]
