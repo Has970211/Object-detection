@@ -12,10 +12,11 @@ from PIL import Image
 from ObjectDetection_detectron2.CREATED.CREATE_D import CreateD
 
 class test(object):
-    def __init__(self, output_dir, img_folder, threshold_scr):
+    def __init__(self, output_dir, img_folder, threshold_scr, output_folder):
        self.output_dir= output_dir
        self.img_folder=img_folder
        self.threshold_scr = threshold_scr
+       self.output_folder = output_folder
 
     def call(self):
         cfg = get_cfg()
@@ -29,15 +30,15 @@ class test(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
         
-        PATHO = os.path.join(self.img_folder, 'OUTPUT_RESULTS')
+        PATHO = os.path.join(self.output_folder, 'OUTPUT_RESULTS')
         if not os.path.exists(PATHO):
             os.mkdir(PATHO)
         
-        PATH = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'Images')
+        PATH = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'Images')
         if not os.path.exists(PATH):
             os.mkdir(PATH)
             
-        PathJ = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile')
+        PathJ = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'JsonFile')
         if not os.path.exists(PathJ):
             os.mkdir(PathJ)
            
@@ -57,7 +58,7 @@ class test(object):
             img.save(os.path.join(PATH, filename))
 
         
-        file = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile', 'sample.json')
+        file = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'JsonFile', 'sample.json')
         try:
             open(file, 'a').close()
         except OSError:
