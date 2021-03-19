@@ -32,6 +32,10 @@ class test(object):
         PATH = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'Images')
         if not os.path.exists(PATH):
             os.mkdir(PATH)
+            
+        PathJ = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile')
+        if not os.path.exists(PathJ):
+            os.mkdir(PathJ)
            
         dict_main={}
         for filename in os.listdir(self.img_folder):
@@ -48,8 +52,15 @@ class test(object):
             img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
             img.save(os.path.join(PATH, filename))
 
-        PathJ = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile/sample.json')
-        with open(PathJ, "r+") as outfile:
+        
+        file = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile', 'sample.json')
+        try:
+            open(file, 'a').close()
+        except OSError:
+            print('Failed creating the file')
+        else:
+            print('File created')
+        with open(file, "r+") as outfile:
             json.dump(dict_main, outfile, default=lambda o: o.__dict__, indent=4)
 
 
