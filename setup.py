@@ -9,7 +9,7 @@ setup(
     # REPLACE WITH YOUR OWN GITHUB PROJECT LINK
     url="https://github.com/Has970211/Object_Detection",
     #scripts = ['scripts/inference.py'],
-    install_requires=['torch', 'torchvision', 'PyYAML', 'Pillow', 'opencv-python', 'opencv-contrib-python', 'numpy'],
+    install_requires=['torch', 'torchvision', 'PyYAML', 'Pillow', 'opencv-python', 'opencv-contrib-python', 'numpy', 'jsonlib'],
     packages=find_packages(),
 
 )
