@@ -29,6 +29,10 @@ class test(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
         
+        PATHO = os.path.join(self.img_folder, 'OUTPUT_RESULTS')
+        if not os.path.exists(PATHO):
+            os.mkdir(PATHO)
+        
         PATH = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'Images')
         if not os.path.exists(PATH):
             os.mkdir(PATH)
