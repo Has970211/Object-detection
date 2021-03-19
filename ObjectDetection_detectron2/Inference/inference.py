@@ -9,6 +9,7 @@ from detectron2.data import MetadataCatalog
 from detectron2.utils.visualizer import ColorMode
 from PIL import Image
 #from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
+from ObjectDetection_detectron2.CREATED.CREATE_D import CreateD
 
 class test(object):
     def __init__(self, output_dir, img_folder, threshold_scr):
@@ -28,23 +29,28 @@ class test(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
         
-        PATH = os.path.join(self.output_dir, 'OUTPUT_RESULTS')
+        PATH = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'Images')
         if not os.path.exists(PATH):
             os.mkdir(PATH)
            
+        dict_main={}
         for filename in os.listdir(self.img_folder):
             im = cv2.imread(os.path.join(self.img_folder, filename))
             rgb_image = im[:, :, ::-1]
             outputs = predictor(rgb_image) # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
 
+            dict1=CreateD(outputs)
+            dict_main[str(filename)]=dict1
+            
             v = Visualizer(rgb_image,  MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
             img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
             img.save(os.path.join(PATH, filename))
 
-
-
+        PathJ = os.path.join(self.img_folder, 'OUTPUT_RESULTS', 'JsonFile/sample.json')
+        with open(PathJ, "r+") as outfile:
+            json.dump(dict_main, outfile, default=lambda o: o.__dict__, indent=4)
 
 
 
