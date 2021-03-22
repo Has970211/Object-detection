@@ -31,6 +31,8 @@ class test(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = self.threshold_scr  #set a custom testing threshold
         predictor = DefaultPredictor(cfg)
         
+        custom_metadata = MetadataCatalog.get("test_set").set(thing_classes=['gauge', 'valve', 'isolation', 'tank', 'idtag', 'pump', 'gaugeD'], thing_dataset_id_to_contiguous_id={1: 0, 2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 7: 6})
+        
         PATHO = os.path.join(self.output_folder, 'OUTPUT_RESULTS')
         if not os.path.exists(PATHO):
             os.mkdir(PATHO)
@@ -52,7 +54,7 @@ class test(object):
             dict1=CreateD(outputs)
             dict_main[str(filename)]=dict1
             
-            v = Visualizer(rgb_image,  MetadataCatalog.get(cfg.DATASETS.TRAIN[0]), scale=1.2)
+            v = Visualizer(rgb_image,  metadata=custom_metadata, scale=1.2)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
             img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
