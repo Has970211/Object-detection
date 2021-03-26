@@ -54,7 +54,7 @@ class test(object):
             dict1=CreateD(outputs)
             dict_main[str(filename)]=dict1
             
-            v = Visualizer(rgb_image,  metadata=custom_metadata, scale=1.2)
+            v = Visualizer(rgb_image,  metadata=custom_metadata, scale=1.0)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
             img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
