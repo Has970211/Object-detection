@@ -1,3 +1,9 @@
+import cv2
+import os
+import json
+import numpy as np
+from PIL import Image
+
 class np_im(object):
   def __init__(self, outputs, PATH_im, filename):
     self.outputs=outputs
