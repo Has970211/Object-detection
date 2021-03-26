@@ -11,6 +11,7 @@ from detectron2.utils.visualizer import ColorMode
 from PIL import Image
 #from ObjectDetection_detectron2.Dataloader.dataloader import dataloader
 from ObjectDetection_detectron2.CREATED.CREATE_D import CreateD
+from ObjectDetection_detectron2.Numpy_image.nmpy_img import np_im
 
 class test(object):
     def __init__(self, output_dir, img_folder, threshold_scr, output_folder):
@@ -54,11 +55,17 @@ class test(object):
             dict1=CreateD(outputs)
             dict_main[str(filename)]=dict1
             
+            PATH_im = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'Images',str(filename)+'_folder')
+            if not os.path.exists(PATH_im):
+                os.mkdir(PATH_im)
+            
+            numpy_ary = np_im(outputs, PATH_im,filename)
+            
             v = Visualizer(rgb_image,  metadata=custom_metadata, scale=1.0)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
 
             img = Image.fromarray(np.uint8(v.get_image()[:, :, ::-1]))
-            img.save(os.path.join(PATH, filename))
+            img.save(os.path.join(PATH_im, filename))
 
         
         file = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'JsonFile', 'sample.json')
