@@ -60,6 +60,7 @@ class test(object):
                 os.mkdir(PATH_im)
             
             numpy_ary = np_im(outputs, PATH_im,filename)
+            numpy_ary.create()
             
             v = Visualizer(rgb_image,  metadata=custom_metadata, scale=1.0)
             v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
