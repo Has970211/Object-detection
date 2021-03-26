@@ -1,10 +1,10 @@
-class nmpy_img(object):
+class np_im(object):
   def __init__(self, outputs, PATH_im, filename):
     self.outputs=outputs
     self.PATH_im=PATH_im
     self.filename=filename
   
-  def np_im(self):
+  def create(self):
     l=self.outputs['instances']
     for i in range(len(l)):
       a=l[i].get_fields()
