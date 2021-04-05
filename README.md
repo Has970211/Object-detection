@@ -16,11 +16,13 @@
   from ObjectDetection_detectron2.Inference.inference import test
   
   #set paths
-    output_dir = '....'
-    img_folder = '....'
-    threshold_scr=....
+  output_dir = '....'
+  img_folder = '....'
+  output_folder = '....'
   
-  Test = test(output_dir, img_folder, threshold_scr)
+  threshold_scr=....
+  
+  Test = test(output_dir, img_folder, threshold_scr, output_folder)
   Test.call()
   
   #output will be saved in the image folder 
