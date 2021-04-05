@@ -16,16 +16,15 @@
   from ObjectDetection_detectron2.Inference.inference import test
   
   #set paths
-  output_dir = '....'
-  img_folder = '....'
-  output_folder = '....'
-  
-  threshold_scr=....
+  output_dir = '....' #set the folder path of output weight folder that we have supplied
+  img_folder = '....' #set the folder path of test image folder(which only contains image files, another files or folders are not allowed to exist.)
+  output_folder = '....' #set the folder path to save output images and json files. New "Images" folder and "JsonFile" folder will be created in that folder and output images and                            json file consists with output predicted results for all images will be saved inside those folders respectively. 
+  threshold_scr = ....
   
   Test = test(output_dir, img_folder, threshold_scr, output_folder)
   Test.call()
   
-  #output will be saved in the image folder 
+  #output will be saved in the output_folder 
   ```
 
   
