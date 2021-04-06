@@ -53,6 +53,7 @@ class test(object):
             outputs = predictor(rgb_image) # format is documented at https://detectron2.readthedocs.io/tutorials/models.html#model-output-format
 
             dict1=CreateD(outputs)
+            dict1.create()
             dict_main[str(filename)]=dict1
             
             PATH_im = os.path.join(self.output_folder, 'OUTPUT_RESULTS', 'Images',str(filename)+'_folder')
